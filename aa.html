@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+        <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                            <title>Document</title>
+                            <script name="graphics-data-definition" type="application/json+gdd">
+    {"$schema": "https://superflytv.github.io/GraphicsDataDefinition/gdd-meta-schema/v1/schema.json",
+    "designerSoftware":"RCC",
+    "type": "object",
+    "properties": {"ccgf0":{"type":"string","label":"label","description":"textbox","default":"aa","gddType":"single-line","pattern":""},"ccgf1":{"type":"string","label":"label","description":"textbox","default":"aa","gddType":"single-line","pattern":""},"ccgf2":{"type":"string","label":"label","description":"textbox","default":"aa","gddType":"single-line","pattern":""},"ccgf3":{"type":"string","label":"label","description":"textbox","default":"aa","gddType":"single-line","pattern":""},"ccg_41":{"type":"string","label":"label","description":"image","default":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wD/AP+","gddType":"file-path/image-path","pattern":""},"ccg_49":{"type":"string","label":"label","description":"image","default":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wD/AP+","gddType":"file-path/image-path","pattern":""}}
+  }
+  </script>
+  <script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function() {
+    window.gddSchema = JSON.parse(document.querySelector('head > script[name="graphics-data-definition"]').innerHTML);
+  });
+</script>
+
+                            <link rel="stylesheet" href="main.css">
+                                <link rel="stylesheet" href="main2.css">
+                                </head>
+                                <body>
+                                    <script>
+                                        document.body.addEventListener('keypress', function(e) {
+                if(e.key.toUpperCase() === "S") {stop(); }
+              });
+                                        if (screen.colorDepth === 0) {
+                var css = '[id^=ccg] {display: none; }',
+                                        head = document.head || document.getElementsByTagName('head')[0],
+                                        style = document.createElement('style');
+                                        head.appendChild(style);
+                                        style.type = 'text/css';
+                                        if (style.styleSheet) {
+                                            // This is required for IE8 and below.
+                                            style.styleSheet.cssText = css;
+                } else {
+                                            style.appendChild(document.createTextNode(css));
+                }
+            }
+
+                                        const elementToObserve = document.body;
+            const observer = new MutationObserver(() => {
+                                            document.body.style.margin = '0';
+                                        document.body.style.padding = '0';
+                                        document.body.style.overflow = 'hidden';
+                                        var aa = document.getElementsByTagName('div')[0];
+                                        aa.style.zoom=(192000/1920)+'%';
+                                        observer.disconnect();
+            });
+                                        observer.observe(elementToObserve, {subtree: true, childList: true })
+
+                                        var dataCaspar = { };
+
+                                        function escapeHtml(unsafe) {
+            return unsafe.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+            }
+
+                                    // Parse templateData into an XML object
+                                    function parseCaspar(str) {
+            var xmlDoc;
+                                    if (window.DOMParser) {
+                                        parser = new DOMParser();
+                                    xmlDoc = parser.parseFromString(str, "text/xml");
+            }
+                                    dataCaspar = XML2JSON(xmlDoc.documentElement.childNodes);
+            }
+
+
+                                    // Make the XML templateData message into a more simple key:value object
+                                    function XML2JSON(node) {
+            var data = { }; // resulting object
+                                    for (k = 0; k < node.length; k++) {
+            var idCaspar = node[k].getAttribute("id");
+                                    var valCaspar = node[k].childNodes[0].getAttribute("value");
+                                    if (idCaspar != undefined && valCaspar != undefined) {
+                                        data[idCaspar] = valCaspar;
+            };
+            }
+                                    return data;
+            }
+
+                                    // Main function to insert data
+                                    function dataInsert(dataCaspar) {
+                                      for (var idCaspar in dataCaspar) {
+                                          var idTemplate = document.getElementById(idCaspar);
+                                          if (idTemplate != undefined) {
+                                              var idtext = idTemplate.getElementsByTagName('text')[0];
+                                              var idimage = idTemplate.getElementsByTagName('image')[0];
+                          
+                                              if (idtext != undefined) {
+                                                  const lines =idTemplate.getElementsByTagName('extraproperty')[0].getAttribute('lines');
+                                                  if (lines === '1') {
+                                                      idTemplate.getElementsByTagName('text')[0].getElementsByTagName('tspan')[0].innerHTML = escapeHtml(dataCaspar[idCaspar]);
+                                                      idTemplate.style.display = "block";
+                                                      if (idTemplate.getElementsByTagName('extraproperty')[0] != undefined) {
+                                                          var textalign1 = idTemplate.getElementsByTagName('extraproperty')[0].getAttribute('textalign');
+                                                          var width1 = idTemplate.getElementsByTagName('extraproperty')[0].getAttribute('width');
+                                                          var originalFontSize = idTemplate.getElementsByTagName('extraproperty')[0].getAttribute('originalfontsize');
+                                                          if (textalign1 == 'center') {
+                                                              idTemplate.getElementsByTagName('text')[0].setAttribute('xml:space', 'preserve1');
+                                                              idTemplate.getElementsByTagName('text')[0].style.whiteSpace = "normal";
+                                                              idTemplate.getElementsByTagName('text')[0].getElementsByTagName('tspan')[0].setAttribute('x', '0');
+                                                              idTemplate.getElementsByTagName('text')[0].getElementsByTagName('tspan')[0].setAttribute('text-anchor', 'middle');
+                                                          }
+                                                          if (textalign1 == 'right') {
+                                                              idTemplate.getElementsByTagName('text')[0].setAttribute('xml:space', 'preserve1');
+                                                              idTemplate.getElementsByTagName('text')[0].style.whiteSpace = 'normal';
+                                                              idTemplate.getElementsByTagName('text')[0].getElementsByTagName('tspan')[0].setAttribute('x', width1 / 2);
+                                                              idTemplate.getElementsByTagName('text')[0].getElementsByTagName('tspan')[0].setAttribute('text-anchor', 'end');
+                                                          }
+                                                          idTemplate.getElementsByTagName('text')[0].setAttribute('font-size', originalFontSize);
+                                                          do {
+                                                              var dd = idTemplate.getElementsByTagName('text')[0].getAttribute('font-size');
+                                                              idTemplate.getElementsByTagName('text')[0].setAttribute('font-size', dd - 1);
+                                                              var width2 = idTemplate.getElementsByTagName('text')[0].getElementsByTagName('tspan')[0].getBBox().width;
+                                                          } while (width2 > width1);
+                                                      }
+                                                  }
+                                                  else {
+                                                    idTemplate.style.display = "block";
+                                                    var textElement = idTemplate.getElementsByTagName('text')[0];
+                                                    var existingTspans = Array.from(textElement.getElementsByTagName('tspan'));
+                                                    var initialX = existingTspans[0].getAttribute('x');
+                                                    var initialY = existingTspans[0].getAttribute('y');
+                                                    var initialDy = existingTspans[1].getAttribute('y') - existingTspans[0].getAttribute('y');
+                                                    var newData = escapeHtml(dataCaspar[idCaspar]);
+                                                    var dataSegments = newData.split('CRLF');
+                                                    var maxWidth = idTemplate.getElementsByTagName('extraproperty')[0].getAttribute('width');
+                        
+                                                    function splitTextIntoLines(text, maxWidth) {
+                                                        var words = text.split(' ');
+                                                        var lines = [];
+                                                        var currentLine = '';
+                                                        words.forEach(function (word) {
+                                                            var testLine = currentLine.length === 0 ? word : currentLine + ' ' + word;
+                                                            var testWidth = textElement.getSubStringLength(0, testLine.length);
+                        
+                                                            if (testWidth > maxWidth) {
+                                                                lines.push(currentLine);
+                                                                currentLine = word;
+                                                            } else {
+                                                                currentLine = testLine;
+                                                            }
+                                                        });
+                                                        lines.push(currentLine);
+                                                        return lines;
+                                                    }
+                        
+                                                    var tspans = [];
+                                                    var previoustxtlines = 0;
+                        
+                                                    dataSegments.forEach(function (segment, i) {
+                                                        if (segment.trim() === '') {
+                                                          segment=' ';
+                                                        }
+                                                        textElement.innerHTML = segment;
+                                                        var txtlines = splitTextIntoLines(segment, maxWidth);
+                                                        txtlines.forEach(function (line, j) {
+                                                            var tspan = document.createElementNS('http://www.w3.org/2000/svg', 'tspan');
+                                                            tspan.textContent = line;
+                                                            tspan.setAttribute('x', initialX);
+                                                            tspan.setAttribute('y', parseInt(initialY) + (parseInt(initialDy) * (previoustxtlines + j)));
+                                                            tspans.push(tspan);
+                                                        });
+                                                        previoustxtlines += txtlines.length;
+                                                    });
+                                                    textElement.innerHTML = '';
+                                                    if (tspans.length === 1) {
+                                                        var tspan = document.createElementNS('http://www.w3.org/2000/svg', 'tspan');
+                                                        tspan.textContent = ' ';
+                                                        tspan.setAttribute('x', initialX);
+                                                        tspan.setAttribute('y', parseInt(initialY) + parseInt(initialDy));
+                                                        tspans.push(tspan);
+                                                    }
+                        
+                                                    tspans.forEach(function (tspan) {
+                                                        textElement.appendChild(tspan);
+                                                    });
+                        
+                                                  }
+                                              }
+                          
+                          
+                                              else if (idimage != undefined) {
+                                                  idTemplate.getElementsByTagName('image')[0].setAttribute('xlink:href', escapeHtml(dataCaspar[idCaspar]));
+                                                  idTemplate.getElementsByTagName('image')[0].setAttribute('preserveAspectRatio', 'none');
+                                                  idTemplate.style.display = "block";
+                                              }
+                                          }
+                                      }
+                                  }
+
+                                    // Call for a update of data from CasparCG client
+                                    function update(str) {
+                                        parseCaspar(str); // Parse templateData into an XML object
+                                    dataInsert(dataCaspar); // Insert data
+            }
+
+                                    // insert data from CasparCg client when activated
+                                    function play(str) {
+                                        parseCaspar(str); // Parse templateData into an XML object
+                                    dataInsert(dataCaspar); // Insert data
+            // gwd.actions.timeline.gotoAndPlay('document.body', 'start');
+            }
+                                    function stop() {
+                                        document.body.innerHTML = '' ;
+            }
+                                    function updatestring(str1, str2) {
+                                        document.getElementById(str1).getElementsByTagName('text')[0].getElementsByTagName('tspan')[0].innerHTML = str2;
+                                    document.getElementById(str1).style.display = "block";
+                                    if (document.getElementById(str1).getElementsByTagName('extraproperty')[0] != undefined) {
+                    var textalign1 = document.getElementById(str1).getElementsByTagName('extraproperty')[0].getAttribute('textalign');
+                                    var width1 = document.getElementById(str1).getElementsByTagName('extraproperty')[0].getAttribute('width');
+                                    var originalFontSize =  document.getElementById(str1).getElementsByTagName('extraproperty')[0].getAttribute('originalfontsize');
+                                    if (textalign1 == 'center') {
+                                        document.getElementById(str1).getElementsByTagName('text')[0].setAttribute('xml:space', 'preserve1');
+                                    document.getElementById(str1).getElementsByTagName('text')[0].style.whiteSpace = "normal";
+                                    document.getElementById(str1).getElementsByTagName('text')[0].getElementsByTagName('tspan')[0].setAttribute('x', '0');
+                                    document.getElementById(str1).getElementsByTagName('text')[0].getElementsByTagName('tspan')[0].setAttribute('text-anchor', 'middle');
+                    }
+                                    if (textalign1 == 'right') {
+                                        document.getElementById(str1).getElementsByTagName('text')[0].setAttribute('xml:space', 'preserve1');
+                                    document.getElementById(str1).getElementsByTagName('text')[0].style.whiteSpace = 'normal';
+                                    document.getElementById(str1).getElementsByTagName('text')[0].getElementsByTagName('tspan')[0].setAttribute('x', width1 / 2);
+                                    document.getElementById(str1).getElementsByTagName('text')[0].getElementsByTagName('tspan')[0].setAttribute('text-anchor', 'end');
+                    }
+                                    document.getElementById(str1).getElementsByTagName('text')[0].setAttribute('font-size', originalFontSize);
+                                    do {
+                        var dd = document.getElementById(str1).getElementsByTagName('text')[0].getAttribute('font-size');
+                                    document.getElementById(str1).getElementsByTagName('text')[0].setAttribute('font-size', dd - 1);
+                                    var width2 = document.getElementById(str1).getElementsByTagName('text')[0].getElementsByTagName('tspan')[0].getBBox().width;
+                    } while (width2 > width1);
+                }
+            }
+                                    function updateimage(str1, str2) {
+                                        document.getElementById(str1).getElementsByTagName('image')[0].setAttribute('xlink:href', str2);
+                                    document.getElementById(str1).getElementsByTagName('image')[0].setAttribute('preserveAspectRatio', 'none');
+                                    document.getElementById(str1).style.display = "block";
+            }
+
+                                </script>
+                                <div> <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="1920" height="1080" viewBox="0 0 1920 1080" xml:space="preserve">
+<desc>Created with Fabric.js 5.3.0</desc>
+<defs>
+</defs>
+<g transform="matrix(0.45 0 0 2.05 339.04 314.21)" id="id_e169d1ba-71c4-414d-84ab-bb45e8cadda3"  >
+<filter id="SVGID_35" y="-20%" height="140%" x="-20%" width="140%" >
+	<feGaussianBlur in="SourceAlpha" stdDeviation="0"></feGaussianBlur>
+	<feOffset dx="0" dy="0" result="oBlur" ></feOffset>
+	<feFlood flood-color="rgb(0,0,0)" flood-opacity="1"/>
+	<feComposite in2="oBlur" operator="in" />
+	<feMerge>
+		<feMergeNode></feMergeNode>
+		<feMergeNode in="SourceGraphic"></feMergeNode>
+	</feMerge>
+</filter>
+<rect style="stroke: rgb(255,255,255); stroke-width: 3; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(51,9,129); fill-rule: nonzero; opacity: 0.9;filter: url(#SVGID_35);" vector-effect="non-scaling-stroke"  class="class_215" x="-467.5" y="-74.8" rx="10" ry="10" width="935" height="149.6" />
+</g>
+<g transform="matrix(1 0 0 1 306.69 198.92)" style="filter: url(#SVGID_36);" id="ccgf0"  >
+<filter id="SVGID_36" y="-20%" height="140%" x="-20%" width="140%" >
+	<feGaussianBlur in="SourceAlpha" stdDeviation="0"></feGaussianBlur>
+	<feOffset dx="0" dy="0" result="oBlur" ></feOffset>
+	<feFlood flood-color="rgb(0,0,0)" flood-opacity="1"/>
+	<feComposite in2="oBlur" operator="in" />
+	<feMerge>
+		<feMergeNode></feMergeNode>
+		<feMergeNode in="SourceGraphic"></feMergeNode>
+	</feMerge>
+</filter>
+<extraproperty textAlign="left" width="325.38" originalFontSize="46.75" lines=1></extraproperty>
+		<text xml:space="preserve" class="class_216" font-family="Arial" font-size="46.75" font-style="normal" font-weight="bold" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1; white-space: pre;" ><tspan x="-162.69" y="14.69" >aa</tspan></text>
+</g>
+<g transform="matrix(1 0 0 1 306.69 266.43)" style="filter: url(#SVGID_37);" id="ccgf1"  >
+<filter id="SVGID_37" y="-20%" height="140%" x="-20%" width="140%" >
+	<feGaussianBlur in="SourceAlpha" stdDeviation="0"></feGaussianBlur>
+	<feOffset dx="0" dy="0" result="oBlur" ></feOffset>
+	<feFlood flood-color="rgb(0,0,0)" flood-opacity="1"/>
+	<feComposite in2="oBlur" operator="in" />
+	<feMerge>
+		<feMergeNode></feMergeNode>
+		<feMergeNode in="SourceGraphic"></feMergeNode>
+	</feMerge>
+</filter>
+<extraproperty textAlign="left" width="325.38" originalFontSize="46.75" lines=1></extraproperty>
+		<text xml:space="preserve" class="class_217" font-family="Arial" font-size="46.75" font-style="normal" font-weight="bold" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1; white-space: pre;" ><tspan x="-162.69" y="14.69" >aa</tspan></text>
+</g>
+<g transform="matrix(1 0 0 1 310.44 352.7)" style="filter: url(#SVGID_38);" id="ccgf2"  >
+<filter id="SVGID_38" y="-20%" height="140%" x="-20%" width="140%" >
+	<feGaussianBlur in="SourceAlpha" stdDeviation="0"></feGaussianBlur>
+	<feOffset dx="0" dy="0" result="oBlur" ></feOffset>
+	<feFlood flood-color="rgb(0,0,0)" flood-opacity="1"/>
+	<feComposite in2="oBlur" operator="in" />
+	<feMerge>
+		<feMergeNode></feMergeNode>
+		<feMergeNode in="SourceGraphic"></feMergeNode>
+	</feMerge>
+</filter>
+<extraproperty textAlign="left" width="325.38" originalFontSize="46.75" lines=1></extraproperty>
+		<text xml:space="preserve" class="class_218" font-family="Arial" font-size="46.75" font-style="normal" font-weight="bold" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1; white-space: pre;" ><tspan x="-162.69" y="14.69" >aa</tspan></text>
+</g>
+<g transform="matrix(1 0 0 1 310.44 408.93)" style="filter: url(#SVGID_39);" id="ccgf3"  >
+<filter id="SVGID_39" y="-20%" height="140%" x="-20%" width="140%" >
+	<feGaussianBlur in="SourceAlpha" stdDeviation="0"></feGaussianBlur>
+	<feOffset dx="0" dy="0" result="oBlur" ></feOffset>
+	<feFlood flood-color="rgb(0,0,0)" flood-opacity="1"/>
+	<feComposite in2="oBlur" operator="in" />
+	<feMerge>
+		<feMergeNode></feMergeNode>
+		<feMergeNode in="SourceGraphic"></feMergeNode>
+	</feMerge>
+</filter>
+<extraproperty textAlign="left" width="325.38" originalFontSize="46.75" lines=1></extraproperty>
+		<text xml:space="preserve" class="class_219" font-family="Arial" font-size="46.75" font-style="normal" font-weight="bold" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1; white-space: pre;" ><tspan x="-162.69" y="14.69" >aa</tspan></text>
+</g>
+<g transform="matrix(1 0 0 1 236.99 86.23)" id="ccg_41"  >
+<filter id="SVGID_42" y="-45%" height="190%" x="-35%" width="170%" >
+	<feGaussianBlur in="SourceAlpha" stdDeviation="15"></feGaussianBlur>
+	<feOffset dx="0" dy="0" result="oBlur" ></feOffset>
+	<feFlood flood-color="rgb(0,0,0)" flood-opacity="1"/>
+	<feComposite in2="oBlur" operator="in" />
+	<feMerge>
+		<feMergeNode></feMergeNode>
+		<feMergeNode in="SourceGraphic"></feMergeNode>
+	</feMerge>
+</filter>
+	<image style="stroke: rgb(0,255,0); stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(255,0,0); fill-rule: nonzero; opacity: 1;filter: url(#SVGID_42);" vector-effect="non-scaling-stroke"  class="class_42" xlink:href="data:image/png;base64,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" x="-102" y="-60" width="204" height="120"></image>
+	<rect x="-102" y="-60" width="204" height="120" style="stroke: rgb(0,255,0); stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: none; fill-rule: nonzero; opacity: 1;filter: url(#SVGID_42);"/>
+</g>
+<g transform="matrix(1 0 0 1 221.99 541.89)" id="ccg_49"  >
+<filter id="SVGID_50" y="-45%" height="190%" x="-35%" width="170%" >
+	<feGaussianBlur in="SourceAlpha" stdDeviation="15"></feGaussianBlur>
+	<feOffset dx="0" dy="0" result="oBlur" ></feOffset>
+	<feFlood flood-color="rgb(0,0,0)" flood-opacity="1"/>
+	<feComposite in2="oBlur" operator="in" />
+	<feMerge>
+		<feMergeNode></feMergeNode>
+		<feMergeNode in="SourceGraphic"></feMergeNode>
+	</feMerge>
+</filter>
+	<image style="stroke: rgb(0,255,0); stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(255,0,0); fill-rule: nonzero; opacity: 1;filter: url(#SVGID_50);" vector-effect="non-scaling-stroke"  class="class_50" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMwAAAB4CAMAAACJp+2jAAAAPFBMVEX/AAD/BAz/HyH/Li3/ODr/Rkn/XV//a2z/eHn/h4f/np7/q6r/tLX/wcL/ycn/1dX/5uX/8fL/+/r+//xsBMgwAAADKklEQVR42u2c7ZKrIAyGCSICiiDn/u/19GPd1VaptkwJTPjV6TQZn4GEN0HK2Pnx7yuDfWcQDMEQDMEQDMEQDMEQDMEQDMFERwgVwRhTD0zgPFQDoxnTtcB4YAymSmDU1UjVAXOdmMvU+Cpg5N1K1gDjZjNXAUw7m7Xlw9g/u7FQGP88Mcup8UXBKGHvH4al4fAzWUIVBdNfstc14EOzNBRXUeMuc9UXBXNLYdI6ubaUzsqjiQ0PTICYAwhlZTMRcyAKS81dzEFXGIyJOTCFwYwxB2NhMLEMcCj+UcmZZt++KU6byX17WQhMWNb9e0Nv/BwhTGh/S/1h336YfzO1ATHMyH4fz+/b+1/0WF7LDqMWAcH3zPnMIqNtjgww0/QoYvRzIbMe7SKqxL6vDDCecantz9qaYLG/qz1ztdAIczstWC0587mX2W01QSONC+H+/DDMJc32uBczw31XVSE4IxtYrr98MH+KEuZNH8ZVV2Yz/kd4tHrUnzlgtlIwuIiguYkZB7GUnQ1m2nos7vcFzVXM+K1U99COzpKaN8swMe3m5gvMJGJZLifMtm4R/a6e0b14oXLywbhUbh0CmHjv4vh4rHLyyBmZxqtEoc1MGq8GBYxP49XjUM1JgobjKAGmJDBPJ7g5YELP03jlfcgMMylI5xfUlBVGpvUss8IEndKxDrlLgGTrDAYE2ixVAnAoNk2RwqlAsmkG9blPFdD0zfoPAwd6TE3A8aPA4SOujuYngSM8tvZs6N511wWEvWbzVuCAwdk4t2/QgMV6CnA+cIRHfNh0UnhKzIdNJ4WnRn0MeGr/hB7/afNw1M1QwtH5QTHAS3gP4GiH89V7Gihg7FE3YwEwh+sBVQDM+owJeNvpy1dcdy1fL8AGP8zcrAUhlbF+vg1wq4mDt0ZJMTN59DCat1L3bt2fBFj3QF2vZctNmde04A0bxDD1XNMKjE3VwPhXwU4wmWBcTTDj6WtNiGFsTTDD2VtNmGH6mmAMY7YmmKEaGF0TjDp2y6wMmO7glRmC+TaMrAmmreifGuqC8d7XU5y9NQiGYAiGYAiGYAiGYAiGYAiGYOLjP2outZEJm1X1AAAAAElFTkSuQmCC" x="-102" y="-60" width="204" height="120"></image>
+	<rect x="-102" y="-60" width="204" height="120" style="stroke: rgb(0,255,0); stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: none; fill-rule: nonzero; opacity: 1;filter: url(#SVGID_50);"/>
+</g>
+</svg>  </div>
+                            </body>
+                            <script src="main.js"></script>
+                            <script src="main2.js"></script>
+                        </html>
